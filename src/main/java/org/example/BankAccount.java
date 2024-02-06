@@ -5,11 +5,10 @@ public class BankAccount {
     private double balance;
 
     public BankAccount(double initialBalance) {
+
         this.balance = initialBalance;
     }
 
-
-    
     public double checkBalance() {
         if (balance < 0) {
             System.out.println("Hata: Yetersiz bakiye: " + balance);
@@ -17,11 +16,15 @@ public class BankAccount {
         return balance;
     }
     public void withdraw(double amount) {
-        if (amount > balance) {
-            System.out.println("Hata: Yetersiz bakiye: " + balance);
-        } else {
-            balance -= amount;
-            System.out.println(amount + " TL çekildi. Yeni bakiye: " + balance);
+        try {
+            if (amount > balance) {
+                throw new IllegalArgumentException("Hata: Yetersiz bakiye: " + balance);
+            } else {
+                balance -= amount;
+                System.out.println(amount + " TL çekildi. Yeni bakiye: " + balance);
+            }
+        }catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
